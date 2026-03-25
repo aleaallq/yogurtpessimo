@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yogurtpessimo Altamura</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #fdf6ec;
+    --warm: #f5e6cc;
+    --peach: #f0c994;
+    --coral: #e87b4f;
+    --brown: #3d1f0d;
+    --dark: #1a0a02;
+    --gold: #c8923a;
+    --blush: #f2d0b0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--dark); color: var(--cream); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 999; opacity: 0.4;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 20px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: linear-gradient(to bottom, rgba(26,10,2,0.95), transparent);
+  }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-style: italic; color: var(--peach); letter-spacing: 0.05em; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { color: var(--blush); text-decoration: none; font-size: 0.85rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.8; transition: opacity 0.3s, color 0.3s; }
+  .nav-links a:hover { opacity: 1; color: var(--peach); }
+
+  .hero {
+    min-height: 100vh; display: grid; place-items: center;
+    position: relative; overflow: hidden;
+    background: radial-gradient(ellipse 80% 70% at 50% 60%, #3d1a07 0%, var(--dark) 70%);
+  }
+  .hero-blob { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+  .blob1 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(232,123,79,0.18) 0%, transparent 70%); top: -100px; left: -150px; animation: drift1 12s ease-in-out infinite alternate; }
+  .blob2 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(200,146,58,0.14) 0%, transparent 70%); bottom: -80px; right: -100px; animation: drift2 15s ease-in-out infinite alternate; }
+  @keyframes drift1 { to { transform: translate(60px, 80px); } }
+  @keyframes drift2 { to { transform: translate(-50px, -60px); } }
+
+  .hero-content { text-align: center; position: relative; z-index: 2; animation: fadeUp 1.2s ease both; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+  .hero-eyebrow { font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; opacity: 0; animation: fadeUp 1s ease 0.3s both; }
+  .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 9vw, 8rem); font-weight: 900; line-height: 0.9; color: var(--cream); letter-spacing: -0.02em; margin-bottom: 16px; opacity: 0; animation: fadeUp 1s ease 0.5s both; }
+  .hero-title span { font-style: italic; color: var(--coral); display: block; }
+  .hero-sub { font-size: 0.9rem; color: var(--blush); opacity: 0.7; letter-spacing: 0.05em; margin-top: 24px; animation: fadeUp 1s ease 0.8s both; }
+  .hero-cta { display: inline-block; margin-top: 48px; padding: 14px 40px; background: var(--coral); color: var(--cream); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; border-radius: 50px; transition: background 0.3s, transform 0.3s, box-shadow 0.3s; box-shadow: 0 8px 32px rgba(232,123,79,0.35); animation: fadeUp 1s ease 1s both; }
+  .hero-cta:hover { background: var(--gold); transform: translateY(-3px); box-shadow: 0 16px 48px rgba(232,123,79,0.5); }
+
+  .scroll-line { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--gold); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.6; animation: fadeUp 1s ease 1.5s both; }
+  .scroll-line::after { content: ''; width: 1px; height: 40px; background: linear-gradient(to bottom, var(--gold), transparent); animation: lineDrop 1.5s ease-in-out infinite; }
+  @keyframes lineDrop { 0%, 100% { transform: scaleY(0); transform-origin: top; opacity: 0; } 50% { transform: scaleY(1); opacity: 1; } }
+
+  .marquee-wrap { overflow: hidden; background: var(--coral); padding: 16px 0; white-space: nowrap; }
+  .marquee-inner { display: inline-flex; animation: marquee 18s linear infinite; }
+  .marquee-item { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem; color: var(--cream); padding: 0 40px; letter-spacing: 0.05em; opacity: 0.9; }
+  .marquee-dot { color: rgba(255,255,255,0.4); }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  .about-wrap { padding: 120px 40px; }
+  .about { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1100px; margin: 0 auto; }
+  .about-visual { position: relative; display: flex; justify-content: center; }
+  .about-circle { width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle at 40% 40%, var(--peach) 0%, var(--coral) 50%, var(--brown) 100%); display: flex; align-items: center; justify-content: center; font-size: 5rem; box-shadow: 0 30px 80px rgba(232,123,79,0.3); animation: float 6s ease-in-out infinite; }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
+  .about-ring { position: absolute; top: 50%; left: 50%; width: 420px; height: 420px; margin: -210px 0 0 -210px; border-radius: 50%; border: 1px dashed rgba(200,146,58,0.3); animation: spin 20s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .section-label { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 700; line-height: 1.1; color: var(--cream); margin-bottom: 32px; }
+  .section-title em { font-style: italic; color: var(--coral); }
+  .about-text p { font-size: 1rem; line-height: 1.85; color: rgba(253,246,236,0.7); margin-bottom: 18px; }
+  .about-address { display: flex; align-items: center; gap: 12px; margin-top: 32px; padding: 16px 24px; background: rgba(255,255,255,0.04); border: 1px solid rgba(200,146,58,0.2); border-radius: 12px; font-size: 0.88rem; color: var(--peach); }
+
+  .menu-wrap { padding: 80px 40px 120px; background: linear-gradient(180deg, var(--dark) 0%, #220c03 50%, var(--dark) 100%); }
+  .menu-inner { max-width: 1100px; margin: 0 auto; }
+  .menu-header { text-align: center; margin-bottom: 64px; }
+  .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 28px; }
+  .menu-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(200,146,58,0.12); border-radius: 20px; padding: 32px; position: relative; overflow: hidden; transition: transform 0.4s, box-shadow 0.4s, border-color 0.4s; }
+  .menu-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 20% 20%, rgba(232,123,79,0.07), transparent 60%); opacity: 0; transition: opacity 0.4s; }
+  .menu-card:hover { transform: translateY(-8px); box-shadow: 0 24px 60px rgba(0,0,0,0.5); border-color: rgba(200,146,58,0.4); }
+  .menu-card:hover::before { opacity: 1; }
+  .card-emoji { font-size: 2.8rem; margin-bottom: 16px; display: block; }
+  .card-category { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .card-name { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--cream); margin-bottom: 8px; }
+  .card-desc { font-size: 0.85rem; color: rgba(253,246,236,0.55); line-height: 1.6; margin-bottom: 24px; }
+  .card-divider { height: 1px; background: rgba(200,146,58,0.12); margin: 16px 0; }
+  .card-variants { display: flex; flex-direction: column; gap: 9px; }
+  .variant-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.83rem; }
+  .variant-name { color: rgba(253,246,236,0.65); }
+  .variant-price { font-weight: 500; color: var(--peach); font-size: 0.95rem; }
+  .combo-card { border-color: rgba(232,123,79,0.3) !important; background: rgba(232,123,79,0.05) !important; }
+
+  footer { background: #0e0602; padding: 64px 40px 40px; text-align: center; border-top: 1px solid rgba(200,146,58,0.1); }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; font-style: italic; color: var(--peach); margin-bottom: 8px; }
+  .footer-sub { font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 40px; }
+  .footer-info { display: flex; justify-content: center; gap: 56px; flex-wrap: wrap; margin-bottom: 48px; }
+  .info-block { text-align: center; }
+  .info-label { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .info-value { font-size: 0.9rem; color: var(--blush); line-height: 1.6; }
+  .footer-copy { font-size: 0.75rem; color: rgba(253,246,236,0.25); padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.05); }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { gap: 20px; }
+    .about-wrap { padding: 72px 20px; }
+    .about { grid-template-columns: 1fr; gap: 48px; }
+    .about-circle { width: 260px; height: 260px; font-size: 3.2rem; }
+    .about-ring { width: 300px; height: 300px; margin: -150px 0 0 -150px; }
+    .menu-wrap { padding: 60px 20px 80px; }
+    .footer-info { gap: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Yogurtpessimo</div>
+  <ul class="nav-links">
+    <li><a href="#menu">Menù</a></li>
+    <li><a href="#about">Chi Siamo</a></li>
+    <li><a href="#footer">Contatti</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-blob blob1"></div>
+  <div class="hero-blob blob2"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">✦ Dal cuore di Altamura ✦</p>
+    <h1 class="hero-title">Yogurt<span>pessimo</span></h1>
+    <p class="hero-sub">Yogurt gelato · Crepe · Pakè · Caffè &nbsp;—&nbsp; Via Pompei 114, Altamura</p>
+    <a href="#menu" class="hero-cta">Scopri il menù</a>
+  </div>
+  <div class="scroll-line">Scorri</div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <span class="marquee-item">Yogurt Gelato <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Crepe Artigianali <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Pakè <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Caffè Specialty <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Altamura <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Yogurt Gelato <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Crepe Artigianali <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Pakè <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Caffè Specialty <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Altamura <span class="marquee-dot">◆</span></span>
+  </div>
+</div>
+
+<div class="about-wrap" id="about">
+  <div class="about">
+    <div class="about-visual">
+      <div class="about-circle">🍦</div>
+      <div class="about-ring"></div>
+    </div>
+    <div class="about-text">
+      <p class="section-label">Chi siamo</p>
+      <h2 class="section-title">Un posto <em>diverso</em> dagli altri</h2>
+      <p>Yogurtpessimo nasce ad Altamura con un'idea semplice: yogurt gelato fresco e cremoso, crepe preparate al momento, pakè golosi e un caffè che sa il fatto suo.</p>
+      <p>Ogni giorno selezioniamo i migliori ingredienti per regalarti un'esperienza che ti fa venir voglia di tornare — anche solo per il profumo.</p>
+      <div class="about-address">
+        <span>📍</span>
+        <span>Via Pompei 114, Altamura (BA)</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="menu-wrap" id="menu">
+  <div class="menu-inner">
+    <div class="menu-header">
+      <p class="section-label">Cosa offriamo</p>
+      <h2 class="section-title">Il nostro <em>menù</em></h2>
+    </div>
+
+    <div class="menu-grid">
+
+      <div class="menu-card">
+        <span class="card-emoji">🍦</span>
+        <p class="card-category">Freddo</p>
+        <h3 class="card-name">Yogurt Gelato</h3>
+        <p class="card-desc">Cremoso, fresco e personalizzabile con i tuoi topping preferiti: frutta, granola, sciroppi, cioccolato.</p>
+        <div class="card-divider"></div>
+        <div class="card-variants">
+          <div class="variant-row"><span class="variant-name">Piccolo (150g)</span><span class="variant-price">€ 3,50</span></div>
+          <div class="variant-row"><span class="variant-name">Medio (250g)</span><span class="variant-price">€ 4,90</span></div>
+          <div class="variant-row"><span class="variant-name">Grande (400g)</span><span class="variant-price">€ 6,50</span></div>
+          <div class="variant-row"><span class="variant-name">+ Topping extra</span><span class="variant-price">+ € 0,50</span></div>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <span class="card-emoji">🥞</span>
+        <p class="card-category">Dolce & Salato</p>
+        <h3 class="card-name">Crepe</h3>
+        <p class="card-desc">Sottili e dorate, preparate sul momento. Dolci o salate, farcite come vuoi tu.</p>
+        <div class="card-divider"></div>
+        <div class="card-variants">
+          <div class="variant-row"><span class="variant-name">Classica (Nutella / marmellata)</span><span class="variant-price">€ 3,00</span></div>
+          <div class="variant-row"><span class="variant-name">Golosa (frutta + panna)</span><span class="variant-price">€ 4,00</span></div>
+          <div class="variant-row"><span class="variant-name">Salata (prosciutto / formaggio)</span><span class="variant-price">€ 4,50</span></div>
+          <div class="variant-row"><span class="variant-name">Special (Lotus / caramello)</span><span class="variant-price">€ 4,50</span></div>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <span class="card-emoji">🫙</span>
+        <p class="card-category">Signature</p>
+        <h3 class="card-name">Pakè</h3>
+        <p class="card-desc">Il nostro dessert in coppa: strati di yogurt, crema, frutta fresca e croccante. Irresistibile.</p>
+        <div class="card-divider"></div>
+        <div class="card-variants">
+          <div class="variant-row"><span class="variant-name">Pakè Classico</span><span class="variant-price">€ 4,50</span></div>
+          <div class="variant-row"><span class="variant-name">Pakè Frutta</span><span class="variant-price">€ 5,00</span></div>
+          <div class="variant-row"><span class="variant-name">Pakè Cioccolato</span><span class="variant-price">€ 5,00</span></div>
+          <div class="variant-row"><span class="variant-name">Pakè Special del giorno</span><span class="variant-price">€ 5,50</span></div>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <span class="card-emoji">☕</span>
+        <p class="card-category">Bevande calde</p>
+        <h3 class="card-name">Caffè & Bevande</h3>
+        <p class="card-desc">Caffè selezionato, espresso deciso e preparazioni speciali per iniziare o chiudere in bellezza.</p>
+        <div class="card-divider"></div>
+        <div class="card-variants">
+          <div class="variant-row"><span class="variant-name">Espresso</span><span class="variant-price">€ 1,20</span></div>
+          <div class="variant-row"><span class="variant-name">Cappuccino</span><span class="variant-price">€ 1,60</span></div>
+          <div class="variant-row"><span class="variant-name">Caffè Americano</span><span class="variant-price">€ 1,50</span></div>
+          <div class="variant-row"><span class="variant-name">Caffè Shakerato</span><span class="variant-price">€ 2,50</span></div>
+          <div class="variant-row"><span class="variant-name">Caffè Freddo</span><span class="variant-price">€ 2,00</span></div>
+        </div>
+      </div>
+
+      <div class="menu-card combo-card">
+        <span class="card-emoji">🎉</span>
+        <p class="card-category">Offerta</p>
+        <h3 class="card-name">Combo del Giorno</h3>
+        <p class="card-desc">Abbina yogurt + caffè o crepe + bevanda a prezzo speciale. Chiedi alla cassa l'offerta del giorno!</p>
+        <div class="card-divider"></div>
+        <div class="card-variants">
+          <div class="variant-row"><span class="variant-name">Yogurt Medio + Caffè</span><span class="variant-price">€ 5,50</span></div>
+          <div class="variant-row"><span class="variant-name">Crepe + Bevanda</span><span class="variant-price">€ 5,00</span></div>
+          <div class="variant-row"><span class="variant-name">Pakè + Caffè</span><span class="variant-price">€ 5,90</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer id="footer">
+  <div class="footer-logo">Yogurtpessimo</div>
+  <p class="footer-sub">Altamura · Puglia</p>
+  <div class="footer-info">
+    <div class="info-block">
+      <p class="info-label">Indirizzo</p>
+      <p class="info-value">Via Pompei 114<br>Altamura (BA)</p>
+    </div>
+    <div class="info-block">
+      <p class="info-label">Orari</p>
+      <p class="info-value">Lun – Dom<br>10:00 – 23:00</p>
+    </div>
+    <div class="info-block">
+      <p class="info-label">Seguici</p>
+      <p class="info-value">@yogurtpessimo<br>Instagram</p>
+    </div>
+  </div>
+  <p class="footer-copy">© 2025 Yogurtpessimo Altamura — Tutti i diritti riservati</p>
+</footer>
+
+</body>
+</html>
